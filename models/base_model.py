@@ -20,8 +20,8 @@ class BaseModel:
             as we create a new instance of this BaseModel class
         """
         self.id = str(uuid.uuid4)
-        self.created_at = datetime.datetime.today().isoformat()
-        self.updated_at = datetime.datetime.today().isoformat()
+        self.created_at = datetime.datetime.today()
+        self.updated_at = datetime.datetime.today()
 
     def __str__(self):
         """
