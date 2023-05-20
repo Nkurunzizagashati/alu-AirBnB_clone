@@ -14,7 +14,7 @@ class BaseModel:
         will inherit from
     """
 
-    def __init__(self):
+    def __init__(self, id, created_at, updated_at):
         """
             this is an init method, this method will be called directly
             as we create a new instance of this BaseModel class
@@ -43,6 +43,6 @@ class BaseModel:
         """
         y = self.__dict__.copy()
         y['__class__'] = self.__class__.__name__
-        # # y['created_at'] = self.created_at.isoformat()
-        # y['updated_at'] = self.updated_at.isoformat()
+        y['created_at'] = self.created_at.isoformat()
+        y['updated_at'] = self.updated_at.isoformat()
         return (y)
