@@ -34,7 +34,7 @@ class BaseModel:
         """
             this method will return the time we have updated our instance
         """
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
         """
