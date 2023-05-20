@@ -14,7 +14,7 @@ class BaseModel:
         will inherit from
     """
 
-    def __init__(self, id, created_at, updated_at):
+    def __init__(self):
         """
             this is an init method, this method will be called directly
             as we create a new instance of this BaseModel class
