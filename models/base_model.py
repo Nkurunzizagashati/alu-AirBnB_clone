@@ -2,7 +2,7 @@
 
 import uuid
 import datetime
-
+import models
 """
     imported uuid, and datetime modules
 """
@@ -31,7 +31,8 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.today()
             self.updated_at = datetime.datetime.today()
-
+            models.storage.new(self)
+            
     def __str__(self):
         """
             this method will print class name, id of an instance and a dictionary
@@ -44,6 +45,7 @@ class BaseModel:
             this method will return the time we have updated our instance
         """
         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
@@ -55,3 +57,6 @@ class BaseModel:
         y['created_at'] = self.created_at.isoformat()
         y['updated_at'] = self.updated_at.isoformat()
         return (y)
+
+
+person = BaseModel()
