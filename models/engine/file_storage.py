@@ -3,6 +3,7 @@
 import re
 import importlib
 import json
+import os
 """
     we imported json, re, and importlib
 """
@@ -13,7 +14,7 @@ class FileStorage():
         this class will help us to store all instances that
         will be created
     """
-    __file_path = "models\engine\file_storage.py"
+    __file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'file.json'))
     __objects = {}
 
     def all(self):
