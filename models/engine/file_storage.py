@@ -64,7 +64,6 @@ class FileStorage():
                 data = json.load(file)
                 for key, value in data.items():
                     class_name, class_id = key.split('.')
-                    del [__class__]
                     cls_file_name = self.add_underscore(class_name)
                     module_name = "models." + cls_file_name
                     module = importlib.import_module(module_name)
