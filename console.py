@@ -14,14 +14,18 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb)"
 
-    def do_quit():
+    def do_quit(self, arg):
         """this method will exit the terminal"""
         return True
     
-    def do_EOF():
+    def do_EOF(self, arg):
         """this method will also exit the terminal"""
         print()
         return True
+    
+    def emptyline(self):
+        """If a user types an empty line the console must pass"""
+        pass
     
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
