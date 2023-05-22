@@ -43,7 +43,7 @@ class FileStorage():
         with open(self.__file_path, 'w') as file:
             json.dump(data, file)
 
-    def add_underscore(string):
+    def add_underscore(self, string):
         """
             this method will help us to convert the class_names
             to the names of the file in which they are defined in
