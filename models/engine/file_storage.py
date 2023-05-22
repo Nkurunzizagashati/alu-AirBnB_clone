@@ -61,7 +61,7 @@ class FileStorage():
         """
         try:
             with open(self.__file_path, 'r') as file:
-                data = json.reload(file)
+                data = json.load(file)
                 for key, value in data.items():
                     class_name, class_id = key.split('.')
                     cls_file_name = self.add_underscore(class_name)
