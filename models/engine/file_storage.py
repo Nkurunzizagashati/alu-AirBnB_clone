@@ -65,7 +65,7 @@ class FileStorage():
                 for key, value in data.items():
                     class_name, class_id = key.split('.')
                     cls_file_name = self.add_underscore(class_name)
-                    module_name = "models." + cls_file_name
+                    module_name = "models. " + cls_file_name
                     module = importlib.import_module(module_name)
                     cls = getattr(module, class_name)
                     obj = cls(**value)
