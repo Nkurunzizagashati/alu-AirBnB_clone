@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 
 import cmd
-"""
-    we imported cmd module, this module is the one which
-    cna help us to create our own console(shell)
-"""
+"""we imported cmd to use in our project"""
 
 
 class HBNBCommand(cmd.Cmd):
