@@ -1,7 +1,11 @@
 #!/usr/bin/python3
+"""
+in this file we are creating a console that will be
+working as the UI in case we haven't developed a front-end
+yet
+"""
 
 import cmd
-"""we imported cmd to use in our project"""
 
 
 class HBNBCommand(cmd.Cmd):
