@@ -23,6 +23,7 @@ class BaseModel:
         if kwargs:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
             for key, value in kwargs.items():
                 if key == 'id':
                     self.id = kwargs.get('id')
