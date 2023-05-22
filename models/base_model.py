@@ -19,6 +19,7 @@ class BaseModel:
             this is an init method, this method will be called directly
             as we create a new instance of this BaseModel class
         """
+        key = None
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'id':
