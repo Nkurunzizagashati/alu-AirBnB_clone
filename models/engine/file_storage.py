@@ -28,7 +28,7 @@ class FileStorage():
             the catenated obj's id and its class name and the value 
             which is this object its self.
         """
-        id = obj.get(id)
+        id = obj.id
         key = f"{type(obj).__name__}.{id}"
         self.__objects[key] = obj
 
@@ -72,4 +72,3 @@ class FileStorage():
                     self.__objects[key] = obj
         except FileNotFoundError:
             pass
-        

@@ -57,6 +57,4 @@ class BaseModel:
         y['created_at'] = self.created_at.isoformat()
         y['updated_at'] = self.updated_at.isoformat()
         return (y)
-
-
-person = BaseModel()
+    
