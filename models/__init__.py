@@ -4,6 +4,8 @@ from models.engine.file_storage import FileStorage
     this file
 """
 
+__all__ = ["BaseModel", "User"]
+
 
 storage = FileStorage()
 storage.reload()

@@ -7,8 +7,8 @@ yet
 
 import cmd
 import models
-import shlex
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -58,6 +58,8 @@ class HBNBCommand(cmd.Cmd):
         line = line.split()
         if not line:
             print("** class name missing **")
+        elif not line[0] in models.__all__:
+            print("** class doesn't exist **")
         elif len(line) == 1:
             print("** instance id missing **")
         else:
@@ -80,6 +82,8 @@ class HBNBCommand(cmd.Cmd):
         line = line.split()
         if not line:
             print("** class name missing **")
+        elif not line[0] in models.__all__:
+            print("** class doesn't exist **")
         elif len(line) < 2:
             print("** instance id missing **")
         else:
@@ -103,6 +107,8 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             for value in models.storage.all().values():
                 print(str(value))
+        elif not line[0] in models.__all__:
+            print("** class doesn't exist **")
         else:
             class_name = line[0]
             for key in models.storage.all().keys():
@@ -125,6 +131,8 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         elif len(line) < 4:
             print("** value missing **")
+        elif not line[0] in models.__all__:
+            print("** class doesn't exist **")
         elif not (line[0] + "." + line[1]) in models.storage.all().keys():
             print("** no instance found **")
         else:
@@ -136,6 +144,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(models.storage.all()[key], attribute_name, new_value_of_attribute)
                 models.storage.save()
-    
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

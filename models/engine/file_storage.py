@@ -4,6 +4,8 @@ import re
 import importlib
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
 """
     we imported json, re, and importlib
 """
@@ -70,6 +72,11 @@ class FileStorage():
                     module = importlib.import_module(module_name)
                     cls = getattr(module, class_name)
                     obj = cls(**value)
-                    self.__objects[key] = obj
+                    if cls == "BaseModel":
+                        obj = BaseModel(**value)
+                        self.__objects[key] = obj
+                    elif cls == "User":
+                        obj = User(**value)
+                        self.__objects[key] = obj
         except FileNotFoundError:
             pass
