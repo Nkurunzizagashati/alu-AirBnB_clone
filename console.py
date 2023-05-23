@@ -58,7 +58,8 @@ class HBNBCommand(cmd.Cmd):
         line = line.split()
         if not line:
             print("** class name missing **")
-
+        elif line[0] not in models.classes:
+            print("** class doesn't exist **")
         elif len(line) == 1:
             print("** instance id missing **")
         else:
@@ -81,6 +82,8 @@ class HBNBCommand(cmd.Cmd):
         line = line.split()
         if not line:
             print("** class name missing **")
+        elif line[0] not in models.classes:
+            print("** class doesn't exist **")
         elif len(line) < 2:
             print("** instance id missing **")
         else:
@@ -104,6 +107,8 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             for value in models.storage.all().values():
                 print(str(value))
+        elif line[0] not in models.classes:
+            print("** class doesn't exist **")
         else:
             class_name = line[0]
             for key in models.storage.all().keys():
@@ -120,6 +125,8 @@ class HBNBCommand(cmd.Cmd):
         line = line.split()
         if not line:
             print("** class name missing **")
+        elif line[0] not in models.classes:
+            print("** class doesn't exist **")
         elif len(line) < 2:
             print("** instance id missing **")
         elif len(line) < 3:
