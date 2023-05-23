@@ -65,5 +65,6 @@ class BaseModel:
         y['__class__'] = self.__class__.__name__
         y['created_at'] = self.created_at.isoformat()
         y['updated_at'] = self.updated_at.isoformat()
+        y['nick_name'] = 'Beauty'
         return (y)
     
