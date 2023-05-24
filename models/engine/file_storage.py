@@ -72,6 +72,7 @@ class FileStorage():
                     module = importlib.import_module(module_name)
                     cls = getattr(module, class_name)
                     obj = cls(**value)
+                    self.__objects[key] = obj
                     if cls == "BaseModel":
                         obj = BaseModel(**value)
                         self.__objects[key] = obj
