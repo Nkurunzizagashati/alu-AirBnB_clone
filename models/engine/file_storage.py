@@ -34,7 +34,7 @@ class FileStorage():
     def new(self, obj):
         """
             this method will set obj into __objects with key which is
-            the catenated obj's id and its class name and the value 
+            the catenated obj's id and its class name and the value
             which is this object its self.
         """
         id = obj.id
