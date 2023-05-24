@@ -41,11 +41,11 @@ class BaseModel:
             self.created_at = datetime.datetime.today()
             self.updated_at = datetime.datetime.today()
             models.storage.new(self)
-            
+
     def __str__(self):
         """
-            this method will print class name, id of an instance and a dictionary
-            representation of an instance
+            this method will print class name, id of an instance
+            and a dictionary representation of an instance
         """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
@@ -66,4 +66,3 @@ class BaseModel:
         y['created_at'] = self.created_at.isoformat()
         y['updated_at'] = self.updated_at.isoformat()
         return (y)
-    
