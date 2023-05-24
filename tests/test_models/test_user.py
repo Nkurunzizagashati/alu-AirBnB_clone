@@ -10,7 +10,7 @@ class TestUser(unittest.TestCase):
     user.first_name = "John"
     user.last_name = "Doe"
     user.assertIsInstance(user, User)
-    self.assertEqual(user.email, "example@example.com")
-    self.assertEqual(user.password, "password123")
-    self.assertEqual(user.first_name, "John")
-    self.assertEqual(user.last_name, "Doe")
+    user.assertEqual(user.email, "example@example.com")
+    user.assertEqual(user.password, "password123")
+    user.assertEqual(user.first_name, "John")
+    user.assertEqual(user.last_name, "Doe")
