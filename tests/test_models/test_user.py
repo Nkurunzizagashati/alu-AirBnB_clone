@@ -3,14 +3,25 @@ from models.user import User
 
 
 class TestUser(unittest.TestCase):
-    # Test creating a new user with valid data
-    user = User()
-    user.email = "example@example.com"
-    user.password = "password123"
-    user.first_name = "John"
-    user.last_name = "Doe"
-    user.assertIsInstance(user, User)
-    user.assertEqual(user.email, "example@example.com")
-    user.assertEqual(user.password, "password123")
-    user.assertEqual(user.first_name, "John")
-    user.assertEqual(user.last_name, "Doe")
+
+    def setUp(self):
+        # Create a sample User instance for testing
+        self.user = User()
+
+    def test_attributes(self):
+        # Test if the attributes are initialized correctly
+        self.assertEqual(self.user.email, '')
+        self.assertEqual(self.user.password, '')
+        self.assertEqual(self.user.first_name, '')
+        self.assertEqual(self.user.last_name, '')
+
+    def test_attribute_types(self):
+        # Test if the attribute types are correct
+        self.assertIsInstance(self.user.email, str)
+        self.assertIsInstance(self.user.password, str)
+        self.assertIsInstance(self.user.first_name, str)
+        self.assertIsInstance(self.user.last_name, str)
+
+
+if __name__ == '__main__':
+    unittest.main()
