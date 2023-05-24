@@ -62,8 +62,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """
         this method will prints the string representation
-        of an instance based on the class name 
-
+        of an instance based on the class name
         usage: show <class name> <id>
         """
         line = line.split()
@@ -86,8 +85,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """
         Deletes an instance based on the class name
-        and id (save the change into the JSON file). 
-
+        and id (save the change into the JSON file).
         usage: destroy <BaseModel> <1234-1234-1234>.
         """
         line = line.split()
@@ -110,8 +108,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line=None):
         """
-        Prints all string representation of 
-        all instances based or not on the class name. 
+        Prints all string representation of
+        all instances based or not on the class name.
         usage: all <BaseModel> or  all
         """
         line = line.split()
@@ -128,9 +126,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """
-        Updates an instance based on the class name and 
+        Updates an instance based on the class name and
         id by adding or updating attribute (save the change into the JSON file)
-
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         line = line.split()
@@ -150,7 +147,8 @@ class HBNBCommand(cmd.Cmd):
             key = line[0] + "." + line[1]
             attribute_name = line[2]
             new_value_of_attribute = line[3]
-            if line[2] == "created_at" or line[2] == "updated_at" or line[2] == "id":
+            if line[2] == "created_at" or line[2] == "updated_at"\
+                    or line[2] == "id":
                 print(f"you are not allowed to edit the {line[2]} property")
             else:
                 setattr(models.storage.all()[
