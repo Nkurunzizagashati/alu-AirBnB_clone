@@ -6,6 +6,11 @@ import json
 import os
 from models.base_model import BaseModel
 from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
 """
     we imported json, re, and importlib
 """
@@ -16,7 +21,8 @@ class FileStorage():
         this class will help us to store all instances that
         will be created
     """
-    __file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'file.json'))
+    __file_path = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), '..', 'file.json'))
     __objects = {}
 
     def all(self):
@@ -67,17 +73,28 @@ class FileStorage():
                 data = json.load(file)
                 for key, value in data.items():
                     class_name, class_id = key.split('.')
-                    cls_file_name = self.add_underscore(class_name)
-                    module_name = "models." + cls_file_name
-                    module = importlib.import_module(module_name)
-                    cls = getattr(module, class_name)
-                    obj = cls(**value)
-                    self.__objects[key] = obj
+                    cls = class_name
+                    # cls_file_name = self.add_underscore(class_name)
+                    # module_name = "models." + cls_file_name
+                    # module = importlib.import_module(module_name)
+                    # cls = getattr(module, class_name)
+                    # obj = cls(**value)
+                    # self.__objects[key] = obj
                     if cls == "BaseModel":
                         obj = BaseModel(**value)
                         self.__objects[key] = obj
                     elif cls == "User":
                         obj = User(**value)
                         self.__objects[key] = obj
+                    elif cls == "Amenity":
+                        obj = Amenity(**value)
+                    elif cls == "Review":
+                        obj = Review(**value)
+                    elif cls == "City":
+                        obj = City(**value)
+                    elif cls == "State":
+                        obj = State(**value)
+                    elif cls == "Place":
+                        obj = Place(**value)
         except FileNotFoundError:
             pass

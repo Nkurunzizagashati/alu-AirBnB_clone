@@ -4,7 +4,8 @@ from models.engine.file_storage import FileStorage
     this file
 """
 
-__all__ = ["BaseModel", "User"]
+__all__ = ["BaseModel", "User", "FileStorage",
+           "Amenity", "State", "City", "Place", "Review"]
 
 
 storage = FileStorage()

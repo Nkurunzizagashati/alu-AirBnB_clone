@@ -9,6 +9,11 @@ import cmd
 import models
 from models.base_model import BaseModel
 from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,12 +25,12 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """this method will exit the terminal"""
         return True
-    
+
     def do_EOF(self, arg):
         """this method will also exit the terminal"""
         print()
         return True
-    
+
     def emptyline(self):
         """If a user types an empty line the console must pass"""
         pass
@@ -39,20 +44,26 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not arg:
             print("** class name missing **")
-            return
-        class_name = args[0]
-        try:
+        elif args[0] not in models.__all__:
+            print("** class doesn't exist **")
+        else:
+            class_name = args[0]
             instance = eval(class_name)()
             instance.save()
             print(instance.id)
-        except NameError:
-            print("** class doesn't exist **")
+        # class_name = args[0]
+        # try:
+        #     instance = eval(class_name)()
+        #     instance.save()
+        #     print(instance.id)
+        # except NameError:
+        #     print("** class doesn't exist **")
 
     def do_show(self, line):
         """
         this method will prints the string representation
         of an instance based on the class name 
-        
+
         usage: show <class name> <id>
         """
         line = line.split()
@@ -96,7 +107,6 @@ class HBNBCommand(cmd.Cmd):
                 models.storage.save()
             else:
                 print("** no instance found **")
-
 
     def do_all(self, line=None):
         """
@@ -143,8 +153,10 @@ class HBNBCommand(cmd.Cmd):
             if line[2] == "created_at" or line[2] == "updated_at" or line[2] == "id":
                 print(f"you are not allowed to edit the {line[2]} property")
             else:
-                setattr(models.storage.all()[key], attribute_name, new_value_of_attribute)
+                setattr(models.storage.all()[
+                        key], attribute_name, new_value_of_attribute)
                 models.storage.save()
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
