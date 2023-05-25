@@ -12,12 +12,6 @@ To see all commands that this console support or recognize, in the opened termin
   
   (hbnb)help
 
-Documented commands (type help <topic>):
-========================================
-EOF  all  create  destroy  help  quit  show  update
-
-(hbnb)
-
 EOF all create destroy help quit show update
 
 (hbnb)
