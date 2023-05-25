@@ -52,16 +52,16 @@ class FileStorage():
         with open(self.__file_path, 'w') as file:
             json.dump(data, file)
 
-    def add_underscore(self, string):
-        """
-            this method will help us to convert the class_names
-            to the names of the file in which they are defined in
-            remember the convention we are using is that if we have
-            a class named BaseMode, this class is defined in file called
-            base_model.py. We will apply this is reload() function bellow
-        """
-        result = re.sub(r'(?<!^)([A-Z])', r'_\1', string)
-        return result.lower()
+    # def add_underscore(self, string):
+    #     """
+    #         this method will help us to convert the class_names
+    #         to the names of the file in which they are defined in
+    #         remember the convention we are using is that if we have
+    #         a class named BaseMode, this class is defined in file called
+    #         base_model.py. We will apply this is reload() function bellow
+    #     """
+    #     result = re.sub(r'(?<!^)([A-Z])', r'_\1', string)
+    #     return result.lower()
 
     def reload(self):
         """

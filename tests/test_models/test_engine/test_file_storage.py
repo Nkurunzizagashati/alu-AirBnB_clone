@@ -21,7 +21,7 @@ class TestFileStorage(unittest.TestCase):
         """
         Set up the test environment.
         """
-        self.fs = storage
+        self.fs = storage.FileStorage()
 
     def tearDown(self):
         """
@@ -65,18 +65,31 @@ class TestFileStorage(unittest.TestCase):
         bm = BaseModel()
         bm.save()
 
-        new_storage = storage
+        new_storage = storage.FileStorage()
         new_storage.reload()
 
         self.assertIn(f"BaseModel.{bm.id}", new_storage.all())
 
-    def test_add_underscore(self):
+    def test_reload_handles_file_not_found(self):
         """
-        Test the add_underscore method.
+        Test that the reload method handles FileNotFoundError gracefully.
         """
-        self.assertEqual(self.fs.add_underscore("BaseModel"), "base_model")
-        self.assertEqual(self.fs.add_underscore("Review"), "review")
-        self.assertEqual(self.fs.add_underscore("Place"), "place")
+        new_storage = storage.FileStorage()
+        new_storage.reload()
+
+        self.assertEqual(new_storage.all(), {})
+
+    def test_reload_handles_invalid_file_data(self):
+        """
+        Test that the reload method handles invalid file data gracefully.
+        """
+        with open(self.fs._FileStorage__file_path, 'w') as file:
+            file.write("Invalid JSON")
+
+        new_storage = storage.FileStorage()
+        new_storage.reload()
+
+        self.assertEqual(new_storage.all(), {})
 
 
 if __name__ == '__main__':
