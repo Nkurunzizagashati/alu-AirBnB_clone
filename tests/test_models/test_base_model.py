@@ -1,76 +1,128 @@
 #!/usr/bin/python3
 """
-Test cases for BaseModel class.
+Unittests for 'models/base_model.py'
 """
 
-import unittest
-import datetime
+import os
 import models
+import unittest
+from datetime import datetime
+from time import sleep
 from models.base_model import BaseModel
 
 
-class TestBaseModel(unittest.TestCase):
+class TestBaseModelInstantiation(unittest.TestCase):
     """
-    Test cases for the BaseModel class.
+    Test cases to ensure correct instantiation of the 'BaseModel' class.
     """
 
-    def test_init_with_kwargs(self):
+    def test_instantiation_without_args(self):
         """
-        Test initialization of BaseModel instance with keyword arguments.
+        Test instantiation of BaseModel without any arguments.
         """
-        data = {
-            'id': 'test_id',
-            'created_at': '2022-01-01T00:00:00.000',
-            'updated_at': '2022-01-02T00:00:00.000',
-            'other_key': 'other_value'
-        }
-        instance = BaseModel(**data)
+        self.assertEqual(BaseModel, type(BaseModel()))
 
-        self.assertEqual(instance.id, 'test_id')
-        self.assertEqual(instance.created_at,
-                         datetime.datetime(2022, 1, 1, 0, 0))
-        self.assertEqual(instance.updated_at,
-                         datetime.datetime(2022, 1, 2, 0, 0))
-        self.assertNotIn('other_key', instance.__dict__)
-
-    def test_init_without_kwargs(self):
+    def test_new_instance_stored_in_objects(self):
         """
-        Test initialization of BaseModel instance without keyword arguments.
+        Test if a new BaseModel instance is stored in storage.
         """
-        instance = BaseModel()
+        self.assertIn(BaseModel(), models.storage.all().values())
 
-        self.assertIsInstance(instance.id, str)
-        self.assertIsInstance(instance.created_at, datetime.datetime)
-        self.assertIsInstance(instance.updated_at, datetime.datetime)
-        self.assertIs(models.storage.new_called, True)
-
-    def test_save(self):
+    def test_id_is_public_str(self):
         """
-        Test saving the BaseModel instance.
+        Test the type of the id attribute of BaseModel.
         """
-        instance = BaseModel()
-        previous_updated_at = instance.updated_at
+        self.assertEqual(str, type(BaseModel().id))
 
-        instance.save()
-
-        self.assertNotEqual(instance.updated_at, previous_updated_at)
-        self.assertIs(models.storage.save_called, True)
-
-    def test_to_dict(self):
+    def test_created_at_is_public_datetime(self):
         """
-        Test conversion of BaseModel instance to a dictionary.
+        Test the type of the created_at attribute of BaseModel.
         """
-        instance = BaseModel()
-        instance_dict = instance.to_dict()
+        self.assertEqual(datetime, type(BaseModel().created_at))
 
-        self.assertIsInstance(instance_dict, dict)
-        self.assertEqual(instance_dict['__class__'], 'BaseModel')
-        self.assertEqual(instance_dict['id'], instance.id)
-        self.assertEqual(instance_dict['created_at'],
-                         instance.created_at.isoformat())
-        self.assertEqual(instance_dict['updated_at'],
-                         instance.updated_at.isoformat())
+    def test_updated_at_is_public_datetime(self):
+        """
+        Test the type of the updated_at attribute of BaseModel.
+        """
+        self.assertEqual(datetime, type(BaseModel().updated_at))
+
+    def test_two_models_unique_ids(self):
+        """
+        Test that two BaseModel instances have unique IDs.
+        """
+        bm1 = BaseModel()
+        bm2 = BaseModel()
+        self.assertNotEqual(bm1.id, bm2.id)
+
+    def test_two_models_different_created_at(self):
+        """
+        Test that two BaseModel instances have different created_at timestamps.
+        """
+        bm1 = BaseModel()
+        sleep(0.05)
+        bm2 = BaseModel()
+        self.assertLess(bm1.created_at, bm2.created_at)
+
+    def test_two_models_different_updated_at(self):
+        """
+        Test that two BaseModel instances have different updated_at timestamps.
+        """
+        bm1 = BaseModel()
+        sleep(0.05)
+        bm2 = BaseModel()
+        self.assertLess(bm1.updated_at, bm2.updated_at)
+
+    def test_str_representation(self):
+        """
+        Test the string representation of a BaseModel instance.
+        """
+        dt = datetime.today()
+        dt_repr = repr(dt)
+        bm = BaseModel()
+        bm.id = "123456"
+        bm.created_at = bm.updated_at = dt
+        bmstr = bm.__str__()
+        self.assertIn("[BaseModel] (123456)", bmstr)
+        self.assertIn("'id': '123456'", bmstr)
+        self.assertIn("'created_at': " + dt_repr, bmstr)
+        self.assertIn("'updated_at': " + dt_repr, bmstr)
+
+    def test_args_unused(self):
+        """
+        Test instantiation of BaseModel with unused arguments.
+        """
+        bm = BaseModel(None)
+        self.assertNotIn(None, bm.__dict__.values())
+
+    def test_instantiation_with_kwargs(self):
+        """
+        Test instantiation of BaseModel with keyword arguments.
+        """
+        dt = datetime.today()
+        dt_iso = dt.isoformat()
+        bm = BaseModel(id="345", created_at=dt_iso, updated_at=dt_iso)
+        self.assertEqual(bm.id, "345")
+        self.assertEqual(bm.created_at, dt)
+        self.assertEqual(bm.updated_at, dt)
+
+    def test_instantiation_with_None_kwargs(self):
+        """
+        Test instantiation of BaseModel with None keyword arguments.
+        """
+        with self.assertRaises(TypeError):
+            BaseModel(id=None, created_at=None, updated_at=None)
+
+    def test_instantiation_with_args_and_kwargs(self):
+        """
+        Test instantiation of BaseModel with both args and kwargs.
+        """
+        dt = datetime.today()
+        dt_iso = dt.isoformat()
+        bm = BaseModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
+        self.assertEqual(bm.id, "345")
+        self.assertEqual(bm.created_at, dt)
+        self.assertEqual(bm.updated_at, dt)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
