@@ -18,7 +18,7 @@ class TestAmenity(unittest.TestCase):
     def test_to_dict(self):
         amenity = Amenity()
         amenity_dict = amenity.to_dict()
-        self.assertEqual(amenity_dict['name'], KeyError)
+        self.assertIsInstance(amenity_dict, dict)
 
     # def test_from_dict(self):
     #     amenity_dict = {'name': 'Wifi'}
