@@ -28,7 +28,7 @@ EOF all create destroy help quit show update
 
     this command exit the terminal
 
-    usage: quit
+            usage: quit
 
 3.  show
 
@@ -39,21 +39,21 @@ EOF all create destroy help quit show update
 
 4.  destroy
 
-            Deletes an instance based on the class name
-        and id (save the change into the JSON file).
+    Deletes an instance based on the class name
+    and id (save the change into the JSON file).
 
         usage: destroy <BaseModel> <1234-1234-1234>.
 
 5.  all::
 
-        Prints all string representation of
-        all instances based or not on the class name.
+    Prints all string representation of
+    all instances based or not on the class name.
 
         usage: all <BaseModel> or  all
 
 6.  update
 
-            Updates an instance based on the class name and
-        id by adding or updating attribute (save the change into the JSON file)
+    Updates an instance based on the class name and
+    id by adding or updating attribute (save the change into the JSON file)
 
         Usage: update <class name> <id> <attribute name> "<attribute value>"
