@@ -1,45 +1,75 @@
+#!/usr/bin/python3
+"""
+Test cases for BaseModel class.
+"""
+
 import unittest
-from models.base_model import BaseModel
 import datetime
+import models
+from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
+    """
+    Test cases for the BaseModel class.
+    """
 
-    def setUp(self):
-        # Create a sample BaseModel instance for testing
-        self.base_model = BaseModel()
+    def test_init_with_kwargs(self):
+        """
+        Test initialization of BaseModel instance with keyword arguments.
+        """
+        data = {
+            'id': 'test_id',
+            'created_at': '2022-01-01T00:00:00.000',
+            'updated_at': '2022-01-02T00:00:00.000',
+            'other_key': 'other_value'
+        }
+        instance = BaseModel(**data)
 
-    def test_init(self):
-        # Test if the attributes are initialized correctly
-        self.assertIsNotNone(self.base_model.id)
-        self.assertIsNotNone(self.base_model.created_at)
-        self.assertIsNotNone(self.base_model.updated_at)
-        self.assertIsInstance(self.base_model.id, str)
-        self.assertIsInstance(self.base_model.created_at, datetime.datetime)
-        self.assertIsInstance(self.base_model.updated_at, datetime.datetime)
+        self.assertEqual(instance.id, 'test_id')
+        self.assertEqual(instance.created_at,
+                         datetime.datetime(2022, 1, 1, 0, 0))
+        self.assertEqual(instance.updated_at,
+                         datetime.datetime(2022, 1, 2, 0, 0))
+        self.assertNotIn('other_key', instance.__dict__)
 
-    def test_str(self):
-        # Test if the __str__() method returns the correct string representation
-        expected_str = f"[BaseModel] ({self.base_model.id}) {self.base_model.__dict__}"
-        self.assertEqual(str(self.base_model), expected_str)
+    def test_init_without_kwargs(self):
+        """
+        Test initialization of BaseModel instance without keyword arguments.
+        """
+        instance = BaseModel()
+
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIs(models.storage.new_called, True)
 
     def test_save(self):
-        # Test if the save() method updates the updated_at attribute
-        old_updated_at = self.base_model.updated_at
-        self.base_model.save()
-        new_updated_at = self.base_model.updated_at
-        self.assertNotEqual(old_updated_at, new_updated_at)
+        """
+        Test saving the BaseModel instance.
+        """
+        instance = BaseModel()
+        previous_updated_at = instance.updated_at
+
+        instance.save()
+
+        self.assertNotEqual(instance.updated_at, previous_updated_at)
+        self.assertIs(models.storage.save_called, True)
 
     def test_to_dict(self):
-        # Test if the to_dict() method returns the correct dictionary representation
-        dict_rep = self.base_model.to_dict()
-        self.assertIsInstance(dict_rep, dict)
-        self.assertEqual(dict_rep['__class__'], 'BaseModel')
-        self.assertEqual(dict_rep['id'], self.base_model.id)
-        self.assertEqual(dict_rep['created_at'],
-                         self.base_model.created_at.isoformat())
-        self.assertEqual(dict_rep['updated_at'],
-                         self.base_model.updated_at.isoformat())
+        """
+        Test conversion of BaseModel instance to a dictionary.
+        """
+        instance = BaseModel()
+        instance_dict = instance.to_dict()
+
+        self.assertIsInstance(instance_dict, dict)
+        self.assertEqual(instance_dict['__class__'], 'BaseModel')
+        self.assertEqual(instance_dict['id'], instance.id)
+        self.assertEqual(instance_dict['created_at'],
+                         instance.created_at.isoformat())
+        self.assertEqual(instance_dict['updated_at'],
+                         instance.updated_at.isoformat())
 
 
 if __name__ == '__main__':
