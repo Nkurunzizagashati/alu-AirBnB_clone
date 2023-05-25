@@ -9,6 +9,14 @@ To interact with this project, while you are in the parent directory of this fil
 To see all commands that this console support or recognize, in the opened terminal you can just type help
 
 # Documented commands (type help <topic>):
+  
+  (hbnb)help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)
 
 EOF all create destroy help quit show update
 
