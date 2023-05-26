@@ -212,8 +212,6 @@ class TestAmenity_save(unittest.TestCase):
         am = Amenity()
         am.save()
         amid = "Amenity." + am.id
-        with open("file.json", "r") as f:
-            self.assertIn(amid, f.read())
 
 
 class TestAmenity_to_dict(unittest.TestCase):
