@@ -1,5 +1,5 @@
-# HBnB: The Console
-![HBNB](/img/hbnb_logo.png)
+#AirBnB clone - The console
+
 
 This project is about creating a clone of AirBnB website
 In this project which is The console, we will write the backend for the AirBnB website
