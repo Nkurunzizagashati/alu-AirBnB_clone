@@ -1,4 +1,4 @@
-#AirBnB clone - The console
+# AirBnB clone - The Console
 
 
 This project is about creating a clone of AirBnB website
